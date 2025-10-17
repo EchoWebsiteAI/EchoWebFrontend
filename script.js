@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Konfigurasi dan State Frontend ---
-    const API_BASE_URL = 'http://127.0.0.1:5000';
+    const API_BASE_URL = 'https://echowebbackend-production.up.railway.app';
     let activeChatId = null; // Menyimpan ID chat yang sedang aktif di layar
     let conversationHistory = []; // Menyimpan daftar judul chat untuk sidebar
 
