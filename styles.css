@@ -1,0 +1,386 @@
+:root {
+    --bg-color-dark: #121212;
+    --surface-color-dark: #1E1E1E;
+    --primary-color-dark: #BB86FC;
+    --secondary-color-dark: #03DAC6;
+    --text-color-dark: #FFFFFF;
+    --text-secondary-dark: #B0B0B0;
+
+    --bg-color-light: #F5F5F5;
+    --surface-color-light: #FFFFFF;
+    --primary-color-light: #6200EE;
+    --secondary-color-light: #03DAC6;
+    --text-color-light: #000000;
+    --text-secondary-light: #5f5f5f;
+}
+
+[data-theme="dark"] {
+    --bg-color: var(--bg-color-dark);
+    --surface-color: var(--surface-color-dark);
+    --primary-color: var(--primary-color-dark);
+    --secondary-color: var(--secondary-color-dark);
+    --text-color: var(--text-color-dark);
+    --text-secondary: var(--text-secondary-dark);
+}
+
+[data-theme="light"] {
+    --bg-color: var(--bg-color-light);
+    --surface-color: var(--surface-color-light);
+    --primary-color: var(--primary-color-light);
+    --secondary-color: var(--secondary-color-light);
+    --text-color: var(--text-color-light);
+    --text-secondary: var(--text-secondary-light);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 260px;
+    background-color: var(--surface-color);
+    height: 100vh;
+    position: fixed;
+    left: -260px;
+    top: 0;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 10px;
+    overflow-y: hidden; /* Prevent double scrollbar */
+}
+.sidebar-top {
+    overflow-y: auto; /* Make top part scrollable */
+}
+
+.sidebar-header {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+#new-chat-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    margin: 0 10px 10px 10px;
+    background-color: var(--primary-color);
+    color: var(--bg-color-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+#new-chat-btn:hover {
+    opacity: 0.9;
+}
+
+#new-chat-btn i {
+    font-size: 1.3rem;
+    margin-right: 10px;
+}
+
+/* -- Style untuk Chat History -- */
+.chat-history {
+    list-style: none;
+    padding: 0 10px;
+    margin: 0;
+}
+
+/* Memodifikasi <a> untuk menampung judul dan tombol hapus */
+.chat-history li a {
+    display: flex;
+    justify-content: space-between; /* Mendorong judul ke kiri dan tombol ke kanan */
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s, color 0.2s;
+    color: var(--text-secondary);
+}
+
+.chat-history .chat-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1; /* Memastikan judul mengambil ruang yang tersedia */
+}
+
+.chat-history li a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+}
+
+.chat-history li.active a {
+    background-color: var(--primary-color);
+    color: var(--bg-color-dark);
+    font-weight: 500;
+}
+
+/* Style untuk tombol "X" (delete) */
+.delete-chat-btn {
+    background: none;
+    border: none;
+    color: inherit; /* Mengambil warna dari parent (<a>) */
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 5px;
+    border-radius: 50%;
+    margin-left: 10px;
+    opacity: 0.5; /* Terlihat samar secara default */
+    transition: opacity 0.2s, background-color 0.2s;
+    line-height: 1;
+}
+
+.chat-history li a:hover .delete-chat-btn {
+    opacity: 1; /* Terlihat jelas saat di-hover */
+}
+
+.delete-chat-btn:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Efek highlight saat tombol di-hover */
+}
+/* ----------------------------- */
+
+.sidebar-bottom {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--text-secondary);
+    padding-top: 10px;
+}
+
+.sidebar-bottom li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: 8px;
+}
+
+.sidebar-bottom li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-bottom i {
+    font-size: 1.2rem;
+    margin-right: 15px;
+}
+
+/* --- Main Content --- */
+.main-content {
+    flex-grow: 1;
+    transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-open {
+    margin-left: 260px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--text-secondary);
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+#sidebar-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.app-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+/* Chat Container */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 75px);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    margin-bottom: 15px;
+    max-width: 70%;
+}
+
+.message p {
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.message.sent {
+    align-self: flex-end;
+}
+
+.message.sent p {
+    background-color: var(--primary-color);
+    color: var(--bg-color-dark);
+    border-bottom-right-radius: 4px;
+}
+
+.message.received {
+    align-self: flex-start;
+}
+
+.message.received p {
+    background-color: var(--surface-color);
+    border-bottom-left-radius: 4px;
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px;
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--text-secondary);
+    align-items: flex-end;
+}
+
+#chat-input-area {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    resize: none;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+#send-btn {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* --- Settings Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--surface-color);
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-btn {
+    color: var(--text-secondary);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: var(--text-color);
+}
+
+.modal-btn {
+    background-color: var(--primary-color);
+    color: var(--bg-color-dark);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.modal-btn:hover {
+    opacity: 0.9;
+}
